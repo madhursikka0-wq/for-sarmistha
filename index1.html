@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Sarmistha</title>
+    <style>
+        :root {
+            --bg-color: #ffeef2;
+            --primary-color: #ff6584;
+            --text-color: #4a4a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 101, 132, 0.15);
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 101, 132, 0.4);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #ff476c;
+        }
+
+        /* Page 2: Loader */
+        .meter-container {
+            width: 100%;
+            background: #eee;
+            border-radius: 10px;
+            height: 20px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6584, #ff2a55);
+            transition: width 0.05s linear;
+        }
+
+        #percentage {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Page 3: Hearts */
+        .hearts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .heart-card {
+            background: #fff5f7;
+            border: 2px dashed #ffb3c1;
+            padding: 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .heart-card:hover {
+            background: #ffe3e8;
+        }
+
+        .heart-emoji {
+            font-size: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .heart-text {
+            display: none;
+            font-size: 1.05rem;
+            margin-top: 10px;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+
+        /* Page 4: Photo Album */
+        .polaroid-frame {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 4px;
+            margin: 0 auto 25px auto;
+            max-width: 320px;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .polaroid-frame:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background-color: #ddd;
+            border: 1px solid #eee;
+        }
+
+        .final-message {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: Welcome -->
+    <div id="page1" class="container active">
+        <h1>Hey Sarmistha ❤️</h1>
+        <p>I built something small just for you. Will you check it out?</p>
+        <button onclick="startMeasuring()">Check</button>
+    </div>
+
+    <!-- PAGE 2: Loading Meter -->
+    <div id="page2" class="container">
+        <h1>Analyzing...</h1>
+        <p>Measuring your cuteness level...</p>
+        <div class="meter-container">
+            <div id="meterFill" class="meter-fill"></div>
+        </div>
+        <div id="percentage">0%</div>
+    </div>
+
+    <!-- PAGE 3: Interactive Hearts -->
+    <div id="page3" class="container">
+        <h1>For You ✨</h1>
+        <p style="font-size: 0.95rem; color: #888;">Tap each heart to reveal a message</p>
+        
+        <div class="hearts-grid">
+            <div class="heart-card" onclick="revealHeart(this)">
+                <div class="heart-emoji">💝</div>
+                <div class="heart-text">Promise me you will always be this much cute as you are.</div>
+            </div>
+            <div class="heart-card" onclick="revealHeart(this)">
+                <div class="heart-emoji">💖</div>
+                <div class="heart-text">Promise me if something goes off you will never leave me 🥺</div>
+            </div>
+            <div class="heart-card" onclick="revealHeart(this)">
+                <div class="heart-emoji">💗</div>
+                <div class="heart-text">I care about you a lot and I really hope we can get past this.</div>
+            </div>
+        </div>
+
+        <button id="seeMoreBtn" onclick="goToPhotos()" style="display: none;">See more</button>
+    </div>
+
+    <!-- PAGE 4: Photo Gallery & Unblock Plea -->
+    <div id="page4" class="container">
+        <h1 style="font-size: 1.6rem; margin-bottom: 5px;">Sweet Memories 📸</h1>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">(Tap the photo to change it)</p>
+        
+        <div class="polaroid-frame" onclick="nextPhoto()">
+            <img id="galleryImg" class="polaroid-img" src="" alt="Our Memory">
+        </div>
+
+        <div class="final-message">
+            Plz unblock me ❤️🥺
+        </div>
+    </div>
+
+    <script>
+        // --- IMAGE CONFIGURATION ---
+        // Replace these URLs with links to your own photos!
+        const myPhotos = [
+            "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500", // Photo 1
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500", // Photo 2
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500"  // Photo 3
+        ];
+        // ---------------------------
+
+        let currentPhotoIndex = 0;
+        let revealedHeartsCount = 0;
+
+        function navigate(from, to) {
+            document.getElementById(from).classList.remove('active');
+            document.getElementById(to).classList.add('active');
+        }
+
+        function startMeasuring() {
+            navigate('page1', 'page2');
+            let count = 0;
+            const fill = document.getElementById('meterFill');
+            const txt = document.getElementById('percentage');
+            
+            // Fast loading logic up to 120%
+            const interval = setInterval(() => {
+                count += 2;
+                if (count <= 100) {
+                    fill.style.width = count + '%';
+                }
+                txt.innerText = count + '%';
+
+                if (count >= 120) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        navigate('page2', 'page3');
+                    }, 800);
+                }
+            }, 30); // controls speed
+        }
+
+        function revealHeart(element) {
+            const textNode = element.querySelector('.heart-text');
+            if (textNode.style.display !== 'block') {
+                textNode.style.display = 'block';
+                element.querySelector('.heart-emoji').style.transform = 'scale(1.2)';
+                revealedHeartsCount++;
+                
+                // Show "See more" button only after all 3 are tapped
+                if (revealedHeartsCount === 3) {
+                    document.getElementById('seeMoreBtn').style.display = 'inline-block';
+                }
+            }
+        }
+
+        function goToPhotos() {
+            // Initialize first photo
+            document.getElementById('galleryImg').src = myPhotos[currentPhotoIndex];
+            navigate('page3', 'page4');
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % myPhotos.length;
+            document.getElementById('galleryImg').src = myPhotos[currentPhotoIndex];
+        }
+    </script>
+</body>
+</html>
